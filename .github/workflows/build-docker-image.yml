@@ -39,7 +39,7 @@ jobs:
         # uses: docker/build-push-action@v4
         if: github.event_name != 'workflow_dispatch'
         env:
-          PANELVER: {{ steps.get_version.outputs.PANELVER }}
+          PANELVER: "{{ steps.get_version.outputs.PANELVER }}"
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
         
         # with:
@@ -54,7 +54,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         
         env:
-          PANELVER: {{ steps.get_version.outputs.PANELVER }}
+          PANELVER: "{{ steps.get_version.outputs.PANELVER }}"
 
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
         # with:
