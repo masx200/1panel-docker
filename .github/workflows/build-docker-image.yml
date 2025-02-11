@@ -38,9 +38,10 @@ jobs:
       - name: Build and push stable
         # uses: docker/build-push-action@v4
         if: github.event_name != 'workflow_dispatch'
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
         env:
           PANELVER: {{ steps.get_version.outputs.PANELVER }}
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
+        
         # with:
         #   push: false
         #   build-args: |
@@ -51,10 +52,11 @@ jobs:
       - name: Build and push stable (Manually)
         # uses: docker/build-push-action@v4
         if: github.event_name == 'workflow_dispatch'
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
+        
         env:
           PANELVER: {{ steps.get_version.outputs.PANELVER }}
 
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
         # with:
         #   push: false
         #   build-args: |
@@ -65,7 +67,7 @@ jobs:
       #docker save gzip
       - run: mkdir -p ./dist
       - run: docker images
-      - name: Build and save
+      - name: Build and sav
         run: docker save ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} | gzip > ./dist/${{ secrets.DOCKERHUB_USERNAME }}-1panel-${{ steps.get_version.outputs.PANELVER }}-image.tgz
 
       - name: Release
