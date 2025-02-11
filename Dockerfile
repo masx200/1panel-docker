@@ -59,3 +59,10 @@ VOLUME /var/run/docker.sock
 
 # 启动
 CMD ["/bin/bash", "-c", "/app/install.sh && /app/update_app_version.sh && /usr/local/bin/1panel"]
+
+
+RUN sudo apt update && sudo apt install dos2unix -y 
+
+RUN bash -c "find . -maxdepth 1 -type f -name \"*.sh\" -exec dos2unix {} \;"
+
+RUN apt clean && rm -rf /var/lib/apt/lists/*
