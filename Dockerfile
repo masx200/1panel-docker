@@ -1,5 +1,5 @@
 # 使用 Ubuntu 22.04 作为基础镜像
-FROM ubuntu:22.04
+FROM skybro/ubuntu-cn:22.04
 
 # 设置环境变量，避免交互式配置
 ARG DEBIAN_FRONTEND=noninteractive
@@ -49,7 +49,7 @@ RUN INSTALL_MODE="stable" && \
     mv -f /app/install.override.sh /app/install.sh && \ 
     cp /app/1panel.service /etc/systemd/system/1panel.service && \
     chmod +x /app/install.sh && \
-    chmod +x /app/update_app_version.sh
+    chmod +x /app/update_app_version.sh  && rm -v /app/${package_file_name}
 # 设置工作目录为根目录
 WORKDIR /
 
