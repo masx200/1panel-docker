@@ -42,7 +42,8 @@ jobs:
           push: false
           build-args: |
             PANELVER=${{ steps.get_version.outputs.PANELVER }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
+          platforms: linux/amd64
+          #,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }}, ${{ secrets.DOCKERHUB_USERNAME }}/1panel:latest
       - name: Build and push stable (Manually)
         uses: docker/build-push-action@v4
@@ -51,12 +52,13 @@ jobs:
           push: false
           build-args: |
             PANELVER=${{ steps.get_version.outputs.PANELVER }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
+          platforms: linux/amd64
+          #,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }}, ${{ secrets.DOCKERHUB_USERNAME }}/1panel:latest
       #docker save gzip
       - name: Build and save nightly
         run: docker save ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} | gzip > ${{ secrets.DOCKERHUB_USERNAME }}-1panel-${{ steps.get_version.outputs.PANELVER }}-image.tgz
-      
+
       - name: Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/heads/main')
@@ -64,4 +66,4 @@ jobs:
           tag_name: Continuous-integration-${{ github.sha }}
           #token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           files: |
-            ./*.tgz  
+            ./*.tgz
