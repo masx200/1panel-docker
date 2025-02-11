@@ -1,5 +1,5 @@
 # 使用 Ubuntu 22.04 作为基础镜像
-FROM skybro/ubuntu-cn:22.04
+FROM skybro/ubuntu-cn:latest
 
 # 设置环境变量，避免交互式配置
 ARG DEBIAN_FRONTEND=noninteractive
