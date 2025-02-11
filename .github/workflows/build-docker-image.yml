@@ -36,29 +36,31 @@ jobs:
           VER_LATEST=$(curl -fsSL https://resource.fit2cloud.com/1panel/package/stable/latest)
           if [ -z "${VER_INPUT}" ]; then echo "PANELVER=${VER_LATEST}" >> $GITHUB_OUTPUT; else echo "PANELVER=${VER_INPUT}" >> $GITHUB_OUTPUT; fi
       - name: Build and push stable
-        uses: docker/build-push-action@v4
+        # uses: docker/build-push-action@v4
         if: github.event_name != 'workflow_dispatch'
-        with:
-          push: false
-          build-args: |
-            PANELVER=${{ steps.get_version.outputs.PANELVER }}
-          platforms: linux/amd64
-          #,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }}, ${{ secrets.DOCKERHUB_USERNAME }}/1panel:latest
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
+        # with:
+        #   push: false
+        #   build-args: |
+        #     PANELVER=${{ steps.get_version.outputs.PANELVER }}
+        #   platforms: linux/amd64
+        #   #,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
+        #   tags: ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }}, ${{ secrets.DOCKERHUB_USERNAME }}/1panel:latest
       - name: Build and push stable (Manually)
-        uses: docker/build-push-action@v4
+        # uses: docker/build-push-action@v4
         if: github.event_name == 'workflow_dispatch'
-        with:
-          push: false
-          build-args: |
-            PANELVER=${{ steps.get_version.outputs.PANELVER }}
-          platforms: linux/amd64
-          #,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }}, ${{ secrets.DOCKERHUB_USERNAME }}/1panel:latest
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
+        # with:
+        #   push: false
+        #   build-args: |
+        #     PANELVER=${{ steps.get_version.outputs.PANELVER }}
+        #   platforms: linux/amd64
+        #   #,linux/arm64,linux/arm/v7,linux/ppc64le,linux/s390x
+        #   tags: ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }}, ${{ secrets.DOCKERHUB_USERNAME }}/1panel:latest
       #docker save gzip
       - run: mkdir -p ./dist
       - run: docker images
-      - name: Build and save 
+      - name: Build and save
         run: docker save ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} | gzip > ./dist/${{ secrets.DOCKERHUB_USERNAME }}-1panel-${{ steps.get_version.outputs.PANELVER }}-image.tgz
 
       - name: Release
