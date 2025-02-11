@@ -57,7 +57,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }}, ${{ secrets.DOCKERHUB_USERNAME }}/1panel:latest
       #docker save gzip
       - name: Build and save nightly
-        run: docker save ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} | gzip > ${{ secrets.DOCKERHUB_USERNAME }}-1panel-${{ steps.get_version.outputs.PANELVER }}-image.tgz
+        run: docker save ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} | gzip > ./dist/${{ secrets.DOCKERHUB_USERNAME }}-1panel-${{ steps.get_version.outputs.PANELVER }}-image.tgz
 
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -66,4 +66,4 @@ jobs:
           tag_name: Continuous-integration-${{ github.sha }}
           #token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           files: |
-            ./*.tgz
+            ./dist/*.tgz
