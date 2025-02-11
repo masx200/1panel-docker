@@ -39,6 +39,8 @@ jobs:
         # uses: docker/build-push-action@v4
         if: github.event_name != 'workflow_dispatch'
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
+        env:
+          PANELVER: { { steps.get_version.outputs.PANELVER } }
         # with:
         #   push: false
         #   build-args: |
@@ -50,6 +52,9 @@ jobs:
         # uses: docker/build-push-action@v4
         if: github.event_name == 'workflow_dispatch'
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} .
+        env:
+          PANELVER: { { steps.get_version.outputs.PANELVER } }
+
         # with:
         #   push: false
         #   build-args: |
