@@ -67,7 +67,7 @@ jobs:
       #docker save gzip
       - run: mkdir -p ./dist
       - run: docker images
-      - name: Build and sav
+      - name: Build and save
         run: docker save ${{ secrets.DOCKERHUB_USERNAME }}/1panel:${{ steps.get_version.outputs.PANELVER }} | gzip > ./dist/${{ secrets.DOCKERHUB_USERNAME }}-1panel-${{ steps.get_version.outputs.PANELVER }}-image.tgz
 
       - name: Release
