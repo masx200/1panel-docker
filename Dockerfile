@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     curl \
     git \
-    sudo \
+       \
     gnupg \
     sqlite3 \
     tzdata \
@@ -61,7 +61,7 @@ VOLUME /var/run/docker.sock
 CMD ["/bin/bash", "-c", "/app/install.sh && /app/update_app_version.sh && /usr/local/bin/1panel"]
 
 
-RUN sudo apt update && sudo apt install dos2unix -y && apt clean && rm -rf /var/lib/apt/lists/*
+RUN    apt update &&    apt install dos2unix -y && apt clean && rm -rf /var/lib/apt/lists/*
 
 RUN bash -c "find . -maxdepth 1 -type f -name \"*.sh\" -exec dos2unix {} \;"
 
