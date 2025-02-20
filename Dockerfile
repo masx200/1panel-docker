@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     curl \
     git \
-       \
+    jq \
     gnupg \
     sqlite3 \
     tzdata \
@@ -40,8 +40,8 @@ RUN INSTALL_MODE="stable" && \
     ARCH=$(dpkg --print-architecture) && \
     if [ "$ARCH" = "armhf" ]; then ARCH="armv7"; fi && \
     if [ "$ARCH" = "ppc64el" ]; then ARCH="ppc64le"; fi && \
-    package_file_name="1panel-$(curl -s https://resource.fit2cloud.com/1panel/package/stable/latest)-linux-${ARCH}.tar.gz" && \
-    package_download_url="https://resource.fit2cloud.com/1panel/package/${INSTALL_MODE}/$(curl -s https://resource.fit2cloud.com/1panel/package/stable/latest)/release/${package_file_name}" && \
+    package_file_name="1panel-$(curl -s https://api.github.com/repos/1Panel-dev/1Panel/releases/latest | jq -r '.tag_name')-linux-${ARCH}.tar.gz" && \
+    package_download_url="https://resource.fit2cloud.com/1panel/package/${INSTALL_MODE}/$(curl -s https://api.github.com/repos/1Panel-dev/1Panel/releases/latest | jq -r '.tag_name')/release/${package_file_name}" && \
     echo "Downloading ${package_download_url}" && \
     curl -sSL -o ${package_file_name} "$package_download_url" && \
     tar zxvf ${package_file_name} --strip-components 1 && \

@@ -1,5 +1,9 @@
 # 1panel-docker
 
+获取最新版本号的接口改成了https://api.github.com/repos/1Panel-dev/1Panel/releases/latest
+
+# 说明
+
 基于[okxlin/docker-1panel](https://github.com/okxlin/docker-1panel)修改了下几个文件，仅解决不使用/opt目录时直接使用应用商店安装应用报错的问题，其他的使用方式和问题都同原项目。
 刚玩github，不太懂规则，如果有什么做的不对的，欢迎指正。
 

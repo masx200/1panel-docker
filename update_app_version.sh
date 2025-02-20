@@ -9,12 +9,12 @@ update_database() {
     # 使用 sqlite3 执行更新操作
     sqlite3 ${PANEL_BASE_DIR}/1panel/db/1Panel.db <<EOF
 UPDATE settings
-SET value = '$(curl -s https://resource.fit2cloud.com/1panel/package/stable/latest)'
+SET value = '$(curl -s https://api.github.com/repos/1Panel-dev/1Panel/releases/latest | jq -r '.tag_name')'
 WHERE key = 'SystemVersion';
 .exit
 EOF
 
-    echo "数据库版本已更新为 $(curl -s https://resource.fit2cloud.com/1panel/package/stable/latest)"
+    echo "数据库版本已更新为 $(curl -s https://api.github.com/repos/1Panel-dev/1Panel/releases/latest | jq -r '.tag_name')"
   else
     echo "警告：${PANEL_BASE_DIR}/1panel/db/1Panel.db 文件不存在" >&2
     exit 0
