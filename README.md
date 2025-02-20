@@ -6,7 +6,7 @@ https://api.github.com/repos/1Panel-dev/1Panel/releases/latest
 
 # 说明
 
-基于[okxlin/docker-1panel](https://github.com/okxlin/docker-1panel)修改了下几个文件，仅解决不使用/opt 目录时直接使用应用商店安装应用报错的问题，其他的使用方式和问题都同原项目。
+基于[masx200/docker-1panel](https://github.com/masx200/docker-1panel)修改了下几个文件，仅解决不使用/opt 目录时直接使用应用商店安装应用报错的问题，其他的使用方式和问题都同原项目。
 刚玩 github，不太懂规则，如果有什么做的不对的，欢迎指正。
 
 ## 另外我也会针对一些常用好玩的应用做一些视频教程和文字教程，大家可以关注下小 up，B 站：masx200，公众号：masx200999，什么值得买：masx200。
